@@ -13,9 +13,9 @@ public interface UserService {
      * @param isExistingUser whether the user already exists
      * @return the saved user
      */
-    User save(User user, boolean isExistingUser);
+//    User save(User user, boolean isExistingUser);
 
-
+    User save(User user);
     List<User> findAll();
     List<User> findByActorId(String actorId);
     void deleteById(Long id);

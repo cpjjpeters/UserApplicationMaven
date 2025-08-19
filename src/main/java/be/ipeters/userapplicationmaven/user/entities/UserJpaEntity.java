@@ -1,5 +1,6 @@
 package be.ipeters.userapplicationmaven.user.entities;
 
+import be.ipeters.userapplicationmaven.user.enumer.UserLanguage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,17 +46,20 @@ public class UserJpaEntity {
 //    @Column
 //    @Enumerated(EnumType.STRING)
 //    private UserCategory userCategory;
-//    @Column
-//    private String userLastName;
-//    @Column
-//    private String userFirstName;
-//    @Column
-//    private String userFullName;
-//    @Column
-//    @Enumerated(EnumType.STRING)
-//    private UserLanguage userLanguage;
-//    @Column
-//    private String userEmail;
+    @Column
+    private String userLastName;
+    @Column
+    private String userFirstName;
+    @Column
+    private String userFullName;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private UserLanguage userLanguage;
+    @Column
+    private String userEmail;
+    @Column
+    private String MoralCustomerId;
+
 //    @Column
 //    private String userEmailValidated;
 //    @Column

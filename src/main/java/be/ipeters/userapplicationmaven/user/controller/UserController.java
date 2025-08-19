@@ -41,8 +41,8 @@ public class UserController {
     public ResponseEntity<User> create(@Validated @RequestBody User user) {
         log.debug("create user or re-activate user  {}", user);
         // Check if the user already exists by actorId
-        boolean isExistingUser = CheckExistingUser(user);
-        User savedUser = userService.save(user, isExistingUser);
+//        boolean isExistingUser = CheckExistingUser(user);
+        User savedUser = userService.save(user);
         log.debug("saved user {}", savedUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
@@ -75,74 +75,58 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-//    @PutMapping(value="/put/{id")
-//    public ResponseEntity<User> update(
-//            @PathVariable(name="id") Long id,
-//            @RequestBody UpdateUserRequest updateUserRequest) {
-//        log.debug("update user {}", updateUserRequest);
-//        var user = this.userService.findById(id);
-//        if (user == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        userJpaDaoMapper.update(updateUserRequest, userJpaDaoMapper.modelToJpaEntity(user));
-//        userService.save(user);
-//        return ResponseEntity.ok(userJpaDaoMapper.jpaEntityToModel(userJpaEntity));
-//    }
-//    @PutMapping(value = "/update/{id}")
-////    @PutMapping(value = "/{id}")
-//    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
-//        log.debug("Updating user with id {}: {}", id, user);
-//        User existingUser = userService.findById(id);
-//        existingUser.setEntityId(user.getEntityId());
-//        existingUser.setActorId(user.getActorId());
-//        existingUser.setUserIdentifier(user.getUserIdentifier());
-//        existingUser.setUserCategory(user.getUserCategory());
-//        existingUser.setMoralCustomerId(user.getMoralCustomerId());
-//        existingUser.setUserLanguage(user.getUserLanguage());
-//        existingUser.setUserFirstName(user.getUserFirstName());
-//        existingUser.setUserLastName(user.getUserLastName());
-//        existingUser.setUserFullName(user.getUserFullName());
-//        existingUser.setUserEmail(user.getUserEmail());
-//        existingUser.setUserStatus(user.getUserStatus());
-//        existingUser.setUserMandateDomain(user.getUserMandateDomain());
-//        existingUser.setFinalized(user.isFinalized());
-//
-//        User updatedUser = userService.updateUser(existingUser);
-//        return ResponseEntity.ok(updatedUser);
-//    }
+    @PutMapping(value="/put/{id}") //replcae completely
+    public ResponseEntity<User> update(
+            @PathVariable(name="id") Long id,
+            @RequestBody User updateUserRequest) {
+        log.debug("update user {}", updateUserRequest);
+        var user = this.userService.findById(id);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+//        userService.save(updateUserRequest);
+        return ResponseEntity.ok(userService.save(updateUserRequest));
+    }
 
-//    @PatchMapping(value = "/{id}")
-//    public ResponseEntity<User> partiallyUpdateUser(@PathVariable("id") Long id, @RequestBody User user) {
-//        log.debug("Partially updating user with id {}: {}", id, user);
-//        User existingUser = userService.findById(id);
-//
-//        // Update only non-null fields
-//        if (user.getUserStatus() != null) {
-//            existingUser.setUserStatus(user.getUserStatus());
-//        }
-//        if(user.getUserIdentifier() != null) {
-//            existingUser.setUserIdentifier(user.getUserIdentifier());
-//        }
-//        if (user.getUserEmail() != null) {
-//            existingUser.setUserEmail(user.getUserEmail());
-//        }
-//        if(user.getUserFirstName() != null) {
-//            existingUser.setUserFirstName(user.getUserFirstName());
-//        }
-//        if(user.getUserLastName() != null) {
-//            existingUser.setUserLastName(user.getUserLastName());
-//        }
-//        if(user.getUserStatus() != null) {
-//            existingUser.setUserStatus(user.getUserStatus());
-//        }
-//        if(user.getMoralCustomerId() != null) {
-//            existingUser.setMoralCustomerId(user.getMoralCustomerId());
-//        }
-//        // Add more fields as needed...
-//
-//        User updatedUser = userService.updateUser(existingUser);
-//        return ResponseEntity.ok(updatedUser);
-//    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<User> partiallyUpdateUser(@PathVariable("id") Long id, @RequestBody User user) {
+        log.debug("Partially updating user with id {}: {}", id, user);
+        User existingUser = userService.findById(id);
+
+        // Update only non-null fields
+        if (user.getUserStatus() != null) {
+            existingUser.setUserStatus(user.getUserStatus());
+        }
+        if(user.getUserIdentifier() != null) {
+            existingUser.setUserIdentifier(user.getUserIdentifier());
+        }
+        if(user.getUserEmail() != null) {
+            existingUser.setUserEmail(user.getUserEmail());
+        }
+        if(user.getActorId() != null) {
+            existingUser.setActorId(user.getActorId());
+        }
+        if(user.getUserFirstName() != null) {
+            existingUser.setUserFirstName(user.getUserFirstName());
+        }
+        if(user.getUserLastName() != null) {
+            existingUser.setUserLastName(user.getUserLastName());
+        }
+        if(user.getUserStatus() != null) {
+            existingUser.setUserStatus(user.getUserStatus());
+        }
+        if(user.getMoralCustomerId() != null) {
+            existingUser.setMoralCustomerId(user.getMoralCustomerId());
+        }
+
+        if (user.getUserLanguage() != null) {
+            existingUser.setUserLanguage(user.getUserLanguage());
+        }
+
+        User updatedUser = userService.save(existingUser);
+        return ResponseEntity.ok(updatedUser);
+    }
 
 
 

@@ -14,4 +14,11 @@ public class User {
     private String actorId;
     private String userIdentifier;
     private String userStatus;
+    private String userEmail;
+    private String userFirstName;
+    private String userLastName;
+    private String userFullName;
+    private String userLanguage;
+    private String MoralCustomerId;
+
 }
