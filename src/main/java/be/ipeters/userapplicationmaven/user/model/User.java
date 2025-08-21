@@ -21,4 +21,5 @@ public class User {
     private String userLanguage;
     private String MoralCustomerId;
 
+
 }

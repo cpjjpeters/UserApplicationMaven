@@ -87,16 +87,7 @@ public class UserController {
 //        userService.save(updateUserRequest);
         return ResponseEntity.ok(userService.save(updateUserRequest));
 
-//        return userService.findById(id)
-//                .map(existingEntity -> {
-//                    // Replace fields (full update)
-//                    existingEntity.s(updateUserRequest.getName());
-//                    existingEntity.setDescription(updateUserRequest.getDescription());
-//                    // ... copy all fields
-//                    User saved = userService.save(existingEntity);
-//                    return ResponseEntity.ok(saved);
-//                })
-//                .orElseGet(() -> ResponseEntity.notFound().build()); // don’t create a new row
+
     }
 
 

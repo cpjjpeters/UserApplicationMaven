@@ -22,11 +22,11 @@ public interface UserEntityMapper {
      * @param user the User model to map
      * @return the mapped UserJpaEntity
      */
-    @Mapping(target = "userEmail", source = "userEmail")
-    @Mapping(target = "userFirstName", source = "userFirstName")
-    @Mapping(target = "userLastName", source = "userLastName")
-    @Mapping(target = "userFullName", source = "userFullName")
-    @Mapping(target = "userLanguage", source = "userLanguage", qualifiedByName = "stringToUserLanguage")
+//    @Mapping(target = "userEmail", source = "userEmail")
+//    @Mapping(target = "userFirstName", source = "userFirstName")
+//    @Mapping(target = "userLastName", source = "userLastName")
+//    @Mapping(target = "userFullName", source = "userFullName")
+//    @Mapping(target = "userLanguage", source = "userLanguage", qualifiedByName = "stringToUserLanguage")
     UserJpaEntity modelToJpaEntity(User user);
     
     /**
@@ -36,13 +36,14 @@ public interface UserEntityMapper {
      * @param userJpaEntity the UserJpaEntity to map
      * @return the mapped User model
      */
-    @Mapping(target = "userEmail", source = "userEmail")
-    @Mapping(target = "userFirstName", source = "userFirstName")
-    @Mapping(target = "userLastName", source = "userLastName")
-    @Mapping(target = "userFullName", source = "userFullName")
-    @Mapping(target = "userLanguage", source = "userLanguage", qualifiedByName = "userLanguageToString")
+//    @Mapping(target = "userEmail", source = "userEmail")
+//    @Mapping(target = "userFirstName", source = "userFirstName")
+//    @Mapping(target = "userLastName", source = "userLastName")
+//    @Mapping(target = "userFullName", source = "userFullName")
+//    @Mapping(target = "userLanguage", source = "userLanguage", qualifiedByName = "userLanguageToString")
     User jpaEntityToModel(UserJpaEntity userJpaEntity);
-    
+
+    void updateJpaEntityFromModel(User user, @MappingTarget UserJpaEntity existing);
     /**
      * Converts a String to UserLanguage enum
      */
@@ -65,7 +66,8 @@ public interface UserEntityMapper {
     default String userLanguageToString(UserLanguage value) {
         return value != null ? value.name() : null;
     }
-    
+
+
     // Custom mapping methods removed as they're no longer needed
     // MapStruct is now correctly mapping all fields including MoralCustomerId
 }
