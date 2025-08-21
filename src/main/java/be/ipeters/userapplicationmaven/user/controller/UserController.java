@@ -75,7 +75,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value="/put/{id}") //replcae completely
+    @PutMapping(value="/put/{id}") //replace completely
     public ResponseEntity<User> update(
             @PathVariable(name="id") Long id,
             @RequestBody User updateUserRequest) {
@@ -86,6 +86,17 @@ public class UserController {
         }
 //        userService.save(updateUserRequest);
         return ResponseEntity.ok(userService.save(updateUserRequest));
+
+//        return userService.findById(id)
+//                .map(existingEntity -> {
+//                    // Replace fields (full update)
+//                    existingEntity.s(updateUserRequest.getName());
+//                    existingEntity.setDescription(updateUserRequest.getDescription());
+//                    // ... copy all fields
+//                    User saved = userService.save(existingEntity);
+//                    return ResponseEntity.ok(saved);
+//                })
+//                .orElseGet(() -> ResponseEntity.notFound().build()); // don’t create a new row
     }
 
 
