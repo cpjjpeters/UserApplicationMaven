@@ -77,11 +77,12 @@ public class GebruikerController {
             @PathVariable(name="id") Long id,
             @RequestBody Gebruiker updateUserRequest) {  // no id in request body, only in path variable!
         log.debug("update gebruiker {}", updateUserRequest);
-        var gebruiker = this.gebruikerService.findById(id);
-        if (gebruiker == null) {
+        var existing = this.gebruikerService.findById(id);
+        if (existing == null) {
             return ResponseEntity.notFound().build();
         }
-//        gebruikerService.save(updateUserRequest);
+        // Ensure update goes to the existing record
+        updateUserRequest.setId(id);
         return ResponseEntity.ok(gebruikerService.save(updateUserRequest));
 
     }

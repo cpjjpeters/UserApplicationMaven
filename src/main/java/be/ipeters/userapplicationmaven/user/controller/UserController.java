@@ -80,14 +80,13 @@ public class UserController {
             @PathVariable(name="id") Long id,
             @RequestBody User updateUserRequest) {
         log.debug("update user {}", updateUserRequest);
-        var user = this.userService.findById(id);
-        if (user == null) {
+        var existing = this.userService.findById(id);
+        if (existing == null) {
             return ResponseEntity.notFound().build();
         }
-//        userService.save(updateUserRequest);
+        // Ensure the update applies to the existing record rather than creating a new one
+        updateUserRequest.setEntityId(id);
         return ResponseEntity.ok(userService.save(updateUserRequest));
-
-
     }
 
 
