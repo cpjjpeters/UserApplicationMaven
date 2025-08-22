@@ -18,15 +18,12 @@ public interface UserEntityMapper {
     /**
      * Maps a User model to a UserJpaEntity
      * Ensures all fields are properly mapped
+     * Note: version is managed by JPA (@Version) and must not be set from the model.
      * 
      * @param user the User model to map
      * @return the mapped UserJpaEntity
      */
-//    @Mapping(target = "userEmail", source = "userEmail")
-//    @Mapping(target = "userFirstName", source = "userFirstName")
-//    @Mapping(target = "userLastName", source = "userLastName")
-//    @Mapping(target = "userFullName", source = "userFullName")
-//    @Mapping(target = "userLanguage", source = "userLanguage", qualifiedByName = "stringToUserLanguage")
+    @Mapping(target = "version", ignore = true)
     UserJpaEntity modelToJpaEntity(User user);
     
     /**
@@ -36,13 +33,13 @@ public interface UserEntityMapper {
      * @param userJpaEntity the UserJpaEntity to map
      * @return the mapped User model
      */
-//    @Mapping(target = "userEmail", source = "userEmail")
-//    @Mapping(target = "userFirstName", source = "userFirstName")
-//    @Mapping(target = "userLastName", source = "userLastName")
-//    @Mapping(target = "userFullName", source = "userFullName")
-//    @Mapping(target = "userLanguage", source = "userLanguage", qualifiedByName = "userLanguageToString")
     User jpaEntityToModel(UserJpaEntity userJpaEntity);
 
+    /**
+     * Updates an existing JPA entity from a model.
+     * Note: version is managed by JPA and must not be overwritten by client input.
+     */
+    @Mapping(target = "version", ignore = true)
     void updateJpaEntityFromModel(User user, @MappingTarget UserJpaEntity existing);
     /**
      * Converts a String to UserLanguage enum

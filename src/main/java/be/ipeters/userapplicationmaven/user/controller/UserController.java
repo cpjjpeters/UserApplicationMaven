@@ -108,11 +108,18 @@ public class UserController {
         if(user.getActorId() != null) {
             existingUser.setActorId(user.getActorId());
         }
+        // Ignore client-provided version; JPA manages it via @Version
+        if(user.getFinalized()!= null) {
+            existingUser.setFinalized(user.getFinalized());
+        }
         if(user.getUserFirstName() != null) {
             existingUser.setUserFirstName(user.getUserFirstName());
         }
         if(user.getUserLastName() != null) {
             existingUser.setUserLastName(user.getUserLastName());
+        }
+        if(user.getUserFullName() != null) {
+            existingUser.setUserFullName(user.getUserFullName());
         }
         if(user.getUserStatus() != null) {
             existingUser.setUserStatus(user.getUserStatus());
